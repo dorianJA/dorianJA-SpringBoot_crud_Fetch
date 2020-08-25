@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.jm.springboot2.springboot2.Repository.RoleRepository;
 import ru.jm.springboot2.springboot2.Repository.UserRepository;
 import ru.jm.springboot2.springboot2.model.Role;
 import ru.jm.springboot2.springboot2.model.User;
@@ -18,16 +19,23 @@ public class UserServiceImp implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private RoleRepository roleRepository;
+
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Transactional
     @Override
-    public void addUser(User user) {
-        user.setRoles(Collections.singleton(new Role(1L, "USER")));
+    public User addUser(User user) {
+        Set<Role> roles = new HashSet<>();
+        for(Role role: user.getRoles()){
+            roles.add(roleRepository.findById(role.getId()).get());
+        }
+        user.setRoles(roles);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
     @Override

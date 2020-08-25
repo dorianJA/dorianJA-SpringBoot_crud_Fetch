@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import ru.jm.springboot2.springboot2.model.Role;
 
 @Repository
-public interface RoleRepository extends CrudRepository<Role,Long> {
+public interface RoleRepository extends CrudRepository<Role, Long> {
 
 }
