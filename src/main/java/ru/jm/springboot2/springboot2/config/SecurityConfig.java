@@ -32,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     @Bean
-    public UserDetailsServiceImpl getUserService(){
+    public UserDetailsServiceImpl getUserService() {
         return new UserDetailsServiceImpl();
     }
 

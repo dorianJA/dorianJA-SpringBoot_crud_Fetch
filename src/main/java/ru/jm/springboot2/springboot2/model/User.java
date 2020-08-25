@@ -64,7 +64,6 @@ public class User implements UserDetails {
     }
 
     public User() {
-
     }
 
     public String getFirstName() {

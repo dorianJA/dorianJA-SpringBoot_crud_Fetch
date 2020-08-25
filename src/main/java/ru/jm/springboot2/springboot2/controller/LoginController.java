@@ -13,9 +13,9 @@ public class LoginController {
 
 
     @RequestMapping(value = "login", method = RequestMethod.GET)
-    public String loginPage(@RequestParam(name = "error",required = false) Boolean error, Model model) {
-        if(Boolean.TRUE.equals(error)){
-            model.addAttribute("error","Incorrect  name or password");
+    public String loginPage(@RequestParam(name = "error", required = false) Boolean error, Model model) {
+        if (Boolean.TRUE.equals(error)) {
+            model.addAttribute("error", "Incorrect  name or password");
         }
         return "login";
     }

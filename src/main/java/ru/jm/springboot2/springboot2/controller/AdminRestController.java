@@ -1,7 +1,6 @@
 package ru.jm.springboot2.springboot2.controller;
 
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +27,7 @@ public class AdminRestController {
 
     @PostMapping("/admin/add_user")
     public ResponseEntity<?> addUser(@Valid @RequestBody UserDto userDto, Errors errors) {
-        userValidator.validate(userDto,errors);
+        userValidator.validate(userDto, errors);
         if (errors.hasErrors()) {
             return ResponseEntity.badRequest().body(errors.getAllErrors());
         } else {
@@ -45,11 +44,11 @@ public class AdminRestController {
 
 
     @PutMapping("/admin/edit_user")
-    public ResponseEntity<?> editUser(@Valid @RequestBody UserDto user,Errors errors) {
+    public ResponseEntity<?> editUser(@Valid @RequestBody UserDto user, Errors errors) {
 
-        if(errors.hasErrors()){
-            return  ResponseEntity.badRequest().body(errors.getAllErrors());
-        }else {
+        if (errors.hasErrors()) {
+            return ResponseEntity.badRequest().body(errors.getAllErrors());
+        } else {
             User updateUser = user.toUser();
             updateUser.setId(user.getId());
             userService.addUser(updateUser);

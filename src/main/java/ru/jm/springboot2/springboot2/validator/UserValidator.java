@@ -23,13 +23,10 @@ public class UserValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
         UserDto user = (UserDto) o;
-        User checkEmail = userService.getUserByName(user.getEmail());
 
 
-
-
-        if(userService.getUserByName(user.getEmail())!=null){
-            errors.rejectValue("email","","This email already exists");
+        if (userService.getUserByName(user.getEmail()) != null) {
+            errors.rejectValue("email", "", "This email already exists");
         }
     }
 }

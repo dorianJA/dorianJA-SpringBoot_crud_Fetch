@@ -29,7 +29,7 @@ public class UserDto {
 
     private Long[] roles;
 
-    public User toUser(){
+    public User toUser() {
         User user = new User();
         user.setPassword(password);
         user.setAge(age);
@@ -37,7 +37,7 @@ public class UserDto {
         user.setLastName(lastName);
         user.setFirstName(firstName);
         Set<Role> rolesUser = new HashSet<>();
-        for(Long role: roles){
+        for (Long role : roles) {
             rolesUser.add(new Role(role));
         }
         user.setRoles(rolesUser);

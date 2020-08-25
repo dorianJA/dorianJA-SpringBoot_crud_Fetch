@@ -30,7 +30,7 @@ public class UserServiceImp implements UserService {
     @Override
     public User addUser(User user) {
         Set<Role> roles = new HashSet<>();
-        for(Role role: user.getRoles()){
+        for (Role role : user.getRoles()) {
             roles.add(roleRepository.findById(role.getId()).get());
         }
         user.setRoles(roles);

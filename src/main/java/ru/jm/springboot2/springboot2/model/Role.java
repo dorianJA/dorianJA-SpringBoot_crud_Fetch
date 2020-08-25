@@ -17,7 +17,7 @@ public class Role implements GrantedAuthority {
     private String name;
 
 
-    @ManyToMany(mappedBy = "roles",fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<User> users;
 
@@ -25,10 +25,11 @@ public class Role implements GrantedAuthority {
         return name;
     }
 
-    public Role(){
+    public Role() {
 
     }
-    public Role(Long id){
+
+    public Role(Long id) {
         this.id = id;
     }
 
@@ -36,7 +37,8 @@ public class Role implements GrantedAuthority {
         this.id = id;
         this.name = role;
     }
-    public Role(String role){
+
+    public Role(String role) {
         this.name = role;
     }
 

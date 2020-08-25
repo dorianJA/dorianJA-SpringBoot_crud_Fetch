@@ -40,5 +40,4 @@ public class MainController {
         model.addAttribute("allRoles", roles);
         return "users";
     }
-
 }

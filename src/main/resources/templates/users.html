@@ -49,7 +49,6 @@
 <!--</script>-->
 
 
-
 <!--Отправка изменений на рестконтроллер-->
 <!--<script type="text/javascript">-->
 <!--    function edit_user() {-->
@@ -163,14 +162,15 @@
         <!--            Левая панель навигации-->
         <div class="col-2">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <a sec:authorize="hasAuthority('ADMIN')" class="nav-link" id="adminTab" data-toggle="pill" href="#v-pills-home" role="tab"
+                <a sec:authorize="hasAuthority('ADMIN')" class="nav-link" id="adminTab" data-toggle="pill"
+                   href="#v-pills-home" role="tab"
                    aria-controls="v-pills-home" aria-selected="true">Admin</a>
                 <a class="nav-link" id="userTab" data-toggle="pill" href="#v-pills-profile" role="tab"
                    aria-controls="v-pills-profile" aria-selected="false">User</a>
             </div>
         </div>
         <!--            Right content-->
-        <div  class="col-10 bg-light">
+        <div class="col-10 bg-light">
             <div class="tab-content" id="v-pills-tabContent">
                 <div sec:authorize="hasAuthority('ADMIN')" class="tab-pane fade" id="v-pills-home" role="tabpanel"
                      aria-labelledby="adminTab">
@@ -246,7 +246,8 @@
                                             ></option>
                                         </select>
                                     </div>
-                                    <button type="button" id="addNewUserButton" class="btn btn-success w-50">Add new user
+                                    <button type="button" id="addNewUserButton" class="btn btn-success w-50">Add new
+                                        user
                                     </button>
                                 </form>
                         </div>
@@ -288,7 +289,8 @@
     </div>
 
     <!-- Modal Edit -->
-    <div sec:authorize="hasAuthority('ADMIN')" class="modal fade" id="editUser" tabindex="-1" role="dialog" aria-labelledby="ModalLabelEdit"
+    <div sec:authorize="hasAuthority('ADMIN')" class="modal fade" id="editUser" tabindex="-1" role="dialog"
+         aria-labelledby="ModalLabelEdit"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -339,7 +341,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button id="editButton" type="button" data-dismiss="modal"  class="btn btn-primary">Edit
+                    <button id="editButton" type="button" data-dismiss="modal" class="btn btn-primary">Edit
                     </button>
                 </div>
             </div>
@@ -347,7 +349,8 @@
     </div>
 
     <!-- Modal Delete -->
-    <div sec:authorize="hasAuthority('ADMIN')" class="modal fade" id="deleteUser" tabindex="-1" role="dialog" aria-labelledby="ModalLabelDelete"
+    <div sec:authorize="hasAuthority('ADMIN')" class="modal fade" id="deleteUser" tabindex="-1" role="dialog"
+         aria-labelledby="ModalLabelDelete"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -392,7 +395,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button id="deleteButton" type="button"  data-dismiss="modal" class="btn btn-danger">Delete
+                    <button id="deleteButton" type="button" data-dismiss="modal" class="btn btn-danger">Delete
                     </button>
                 </div>
             </div>
@@ -424,7 +427,9 @@
     });
 
     //Отправка данных на сервер и изменение строки в таблице после нажатия ктопки Edit в окне
-    $('#editButton').click(async function(e) {
+    $('#editButton').click(async
+
+    function (e) {
 
         let user = {
             id: $('#inputEdit_id').val(),
@@ -436,7 +441,8 @@
             roles: $("#inputEdit_role").val(),
         };
 
-        let response = await fetch('/admin/edit_user',{
+        let response = await
+        fetch('/admin/edit_user', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
@@ -444,13 +450,14 @@
             body: JSON.stringify(user)
         });
 
-        if(response.ok){
+        if (response.ok) {
 
-            let result = await response.json();
+            let result = await
+            response.json();
             let tableAllUsers = document.querySelector('#tableId');
             let roles = getRoleName(result['roles']);
             let row = $('td[data-id="' + result['id'] + '"]').closest('tr');
-            row.html('<td data-id = "' + result['id'] +'">' + result['id'] + '</td>' +
+            row.html('<td data-id = "' + result['id'] + '">' + result['id'] + '</td>' +
                 '<td id="editUser_fname">' + result['firstName'] + '</td>' +
                 '<td id ="editUser_lname">' + result['lastName'] + '</td>' +
                 '<td id="editUser_age">' + result['age'] + '</td>' +
@@ -467,16 +474,19 @@
             console.log(row);
         }
 
-        if(response.status == 400){
-            let result = await response.json();
+        if (response.status == 400) {
+            let result = await
+            response.json();
             for (let i = 0; i < result.length; i++) {
                 let errorMessage = result[i]['defaultMessage'];
                 alert(errorMessage);
             }
         }
 
-    });
+    }
 
+    )
+    ;
 
 
 </script>
@@ -501,27 +511,35 @@
     });
 
     //Отправка данных на сервер и удаление строки в таблице после нажатия ктопки Delete
-    $('#deleteButton').click(async function(e) {
+    $('#deleteButton').click(async
+
+    function (e) {
         let id = $('#inputDelete_id').val();
 
-        let response = await fetch('/admin/delete_user/'+id,{
+        let response = await
+        fetch('/admin/delete_user/' + id, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
             }
         })
 
-        if (response.ok){
+        if (response.ok) {
             $('td[data-id="' + id + '"]').closest('tr').remove()
             console.log('User deleted')
         }
-    });
+    }
+
+    )
+    ;
 
 
 </script>
 <!--Добавление новго пользователя-->
 <script type="text/javascript">
-    $('#addNewUserButton').click(async function(e){
+    $('#addNewUserButton').click(async
+
+    function (e) {
 
         let user = {
             email: $("#user_email").val(),
@@ -532,7 +550,8 @@
             roles: $("#user_role").val(),
         };
 
-        let response = await fetch('/admin/add_user',{
+        let response = await
+        fetch('/admin/add_user', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
@@ -540,13 +559,14 @@
             body: JSON.stringify(user)
         });
 
-        if(response.ok){
-            let result = await response.json();
+        if (response.ok) {
+            let result = await
+            response.json();
             console.log(result);
             let table = document.querySelector('#tableId');
             let newRow = document.createElement('tr');
             let roles = getRoleName(result['roles']);
-            newRow.innerHTML =  '<td data-id = "' + result['id'] +'">' + result['id'] + '</td>' +
+            newRow.innerHTML = '<td data-id = "' + result['id'] + '">' + result['id'] + '</td>' +
                 '<td id="editUser_fname">' + result['firstName'] + '</td>' +
                 '<td id ="editUser_lname">' + result['lastName'] + '</td>' +
                 '<td id="editUser_age">' + result['age'] + '</td>' +
@@ -565,76 +585,82 @@
 
         }
 
-        if(response.status == 400){
-            let result = await response.json();
+        if (response.status == 400) {
+            let result = await
+            response.json();
             for (let i = 0; i < result.length; i++) {
                 let errorMessage = result[i]['defaultMessage'];
                 alert(errorMessage);
             }
         }
 
-    });
+    }
+
+    )
+    ;
 </script>
 
 <!--Получение данных с сервера о всех пользователях в бд, и создание таблицы-->
 <script type="text/javascript">
 
-        document.addEventListener("DOMContentLoaded", async() => {
-            let tableWrapper = document.querySelector("#userTableTab");
-        let response = await fetch('/admin/get_users');
-        if (response.ok) {
-            let createTable = document.createElement('table');
-            createTable.classList.add('table');
-            createTable.setAttribute("id","tableId");
-            createTable.innerHTML = '<thead>' +
-                '<tr>' +
-                '<th>ID</th>' +
-                '<th>First Name</th>' +
-                '<th>Last Name</th>' +
-                '<th>Age</th>' +
-                '<th>Email</th>' +
-                '<th>Role</th>' +
-                '<th>Edit</th>' +
-                '<th>Delete</th>' +
-                '</tr>' +
-                ' </thead>';
-            response.json().then(function (data) {
-                for (let i = 0; i < data.length; i++) {
-                    let rowItem = document.createElement('tr');
-                    let roles = getRoleName(data[i].roles);
-                    rowItem.innerHTML = '<td data-id = "' + data[i].id +'">' + data[i].id + '</td>' +
-                        '<td id="editUser_fname">' + data[i].firstName + '</td>' +
-                        '<td id ="editUser_lname">' + data[i].lastName + '</td>' +
-                        '<td id="editUser_age">' + data[i].age + '</td>' +
-                        '<td id="editUser_email">' + data[i].email + '</td>' +
-                        '<td id="editUser_role">' + roles + '</td>' +
-                        '<td><button type="button" class="btn btn-info" ' +
-                        'data-toggle="modal" data-target="#editUser" ' +
-                        'data-whatever="Edit" >Edit</button></td>' +
-                        '<td><button type="button" class="btn btn-danger" ' +
-                        'data-toggle="modal" data-target="#deleteUser"' +
-                        'data-whatever="Delete">Delete</button></td>';
-                    createTable.append(rowItem);
-                }
-            });
-            tableWrapper.append(createTable);
-        }
-    });
-
-        function getRoleName(roles) {
-            let userRoles = '';
-            for (let y = 0; y < roles.length; y++) {
-                userRoles += ', ' + roles[y].name;
+    document.addEventListener("DOMContentLoaded", async() = > {
+        let tableWrapper = document.querySelector("#userTableTab");
+    let response = await
+    fetch('/admin/get_users');
+    if (response.ok) {
+        let createTable = document.createElement('table');
+        createTable.classList.add('table');
+        createTable.setAttribute("id", "tableId");
+        createTable.innerHTML = '<thead>' +
+            '<tr>' +
+            '<th>ID</th>' +
+            '<th>First Name</th>' +
+            '<th>Last Name</th>' +
+            '<th>Age</th>' +
+            '<th>Email</th>' +
+            '<th>Role</th>' +
+            '<th>Edit</th>' +
+            '<th>Delete</th>' +
+            '</tr>' +
+            ' </thead>';
+        response.json().then(function (data) {
+            for (let i = 0; i < data.length; i++) {
+                let rowItem = document.createElement('tr');
+                let roles = getRoleName(data[i].roles);
+                rowItem.innerHTML = '<td data-id = "' + data[i].id + '">' + data[i].id + '</td>' +
+                    '<td id="editUser_fname">' + data[i].firstName + '</td>' +
+                    '<td id ="editUser_lname">' + data[i].lastName + '</td>' +
+                    '<td id="editUser_age">' + data[i].age + '</td>' +
+                    '<td id="editUser_email">' + data[i].email + '</td>' +
+                    '<td id="editUser_role">' + roles + '</td>' +
+                    '<td><button type="button" class="btn btn-info" ' +
+                    'data-toggle="modal" data-target="#editUser" ' +
+                    'data-whatever="Edit" >Edit</button></td>' +
+                    '<td><button type="button" class="btn btn-danger" ' +
+                    'data-toggle="modal" data-target="#deleteUser"' +
+                    'data-whatever="Delete">Delete</button></td>';
+                createTable.append(rowItem);
             }
-            return userRoles.substring(2);
+        });
+        tableWrapper.append(createTable);
+    }
+    })
+    ;
+
+    function getRoleName(roles) {
+        let userRoles = '';
+        for (let y = 0; y < roles.length; y++) {
+            userRoles += ', ' + roles[y].name;
         }
+        return userRoles.substring(2);
+    }
 
 </script>
 
 
 <!--Активация вкладки админ или юзер в зависимости от роли-->
 <script type="text/javascript">
-    if ($('[data-role]').text().indexOf('ADMIN') != -1 ) {
+    if ($('[data-role]').text().indexOf('ADMIN') != -1) {
         $('#adminTab').addClass('active');
         $('#v-pills-home').addClass('show active');
     } else {
@@ -642,7 +668,6 @@
         $('#v-pills-profile').addClass('show active');
     }
 </script>
-
 
 
 </body>
